@@ -1,0 +1,19 @@
+[package]
+name = "{{project-name}}"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+crate_interface = { git = "https://github.com/Byte-OS/crate_interface.git" }
+
+log = "0.4"
+fdt = "0.1.5"
+buddy_system_allocator = "0.9.1"
+spin = { version = "0.9.8", features = ["mutex"] }
+
+[dependencies.arch]
+git = "https://github.com/Byte-OS/arch.git"
+rev = "83ebdfb45c77ec7761801513cc87ce023185bf56"
+default-features = false
