@@ -1,0 +1,24 @@
+name: CI based on Arch template
+on: 
+    push:
+    pull_request:
+    workflow_dispatch:
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                arch: [riscv64, aarch64, x86_64, loongarch64]
+                include:
+                    - arch: riscv64
+                      packages: qemu-system-misc
+                    - arch: aarch64
+                      packages: qemu-system-arm
+                    - arch: x86_64
+                      packages: qemu-system-x86
+        steps:
+            - uses: actions/checkout@v4
+            - uses: dtolnay/rust-toolchain@stable
+            - name: run
+              run: echo "Hello world"
