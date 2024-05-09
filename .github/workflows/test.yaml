@@ -1,24 +1,37 @@
-name: CI based on Arch template
+name: CI based on Polyhal template
 on: 
-    push:
-    pull_request:
-    workflow_dispatch:
+  push:
+  pull_request:
+  workflow_dispatch:
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                arch: [riscv64, aarch64, x86_64, loongarch64]
-                include:
-                    - arch: riscv64
-                      packages: qemu-system-misc
-                    - arch: aarch64
-                      packages: qemu-system-arm
-                    - arch: x86_64
-                      packages: qemu-system-x86
-        steps:
-            - uses: actions/checkout@v4
-            - uses: dtolnay/rust-toolchain@stable
-            - name: run
-              run: echo "Hello world"
+  template:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:base
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x86_64, riscv64, aarch64, loongarch64]
+        include:
+          - arch: aarch64
+            packages: qemu-system-aarch64
+          - arch: riscv64
+            packages: qemu-system-riscv
+          - arch: x86_64
+            packages: qemu-system-x86
+          - arch: loongarch64
+            packages: qemu-system-loongarch64
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install generaic tools
+        run: yes | pacman -Syy make cmake rustup gcc git libgit2 libgit2-glib pkgconf openssl
+      - name: Install Rust toolchain
+        run: rustup default stable && cargo install cargo-binutils && cargo install cargo-generate
+      - name: generate by template
+        run: USER=test cargo generate --git https://github.com/Byte-OS/polyhal-template.git -n test-polyhal
+      - name: Install Qemu
+        run: yes | pacman -Syy ${{ matrix.packages }}
+      - name: test run
+        run: cd test-polyhal && PATH=$PATH:~/.cargo/bin make ARCH=${{ matrix.arch }} run
+        timeout-minutes: 1

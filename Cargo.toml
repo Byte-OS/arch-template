@@ -1,5 +1,6 @@
 [package]
-name = "{{project-name}}"
+# name = "{{project-name}}"
+name = "polyhal-template"
 version = "0.1.0"
 edition = "2021"
 
@@ -13,7 +14,6 @@ fdt = "0.1.5"
 buddy_system_allocator = "0.9.1"
 spin = { version = "0.9.8", features = ["mutex"] }
 
-[dependencies.arch]
-git = "https://github.com/Byte-OS/arch.git"
-rev = "83ebdfb45c77ec7761801513cc87ce023185bf56"
-default-features = false
+[dependencies.polyhal]
+git = "https://github.com/Byte-OS/polyhal.git"
+features = ["multicore", "kcontext"]

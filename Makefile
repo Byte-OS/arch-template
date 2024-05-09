@@ -28,7 +28,8 @@ else
   $(error "ARCH" must be one of "x86_64", "riscv64", "aarch64" or "loongarch64")
 endif
 
-KERNEL_ELF := target/$(TARGET)/release/{{project-name}}
+# KERNEL_ELF := target/$(TARGET)/release/{{project-name}}
+KERNEL_ELF := target/$(TARGET)/release/polyhal-template
 KERNEL_BIN := $(KERNEL_ELF).bin
 
 # Binutils
