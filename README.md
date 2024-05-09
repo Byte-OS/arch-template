@@ -1,6 +1,6 @@
-# Arch Template
+# polyhal Template
 
-This is a arch template that can provide a very tiny kernel runtime.
+This is a polyhal template that can provide a very tiny kernel runtime.
 
 ## How to use
 
@@ -13,7 +13,7 @@ cargo install cargo-generate
 ## Generate the tiny kernel runtime.
 
 ```shell
-cargo generate --git https://github.com/Byte-OS/arch-template.git
+cargo generate --git https://github.com/Byte-OS/polyhal-template.git
 ```
 
 then you can write your commands to the main function in main.rs.
