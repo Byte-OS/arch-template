@@ -29,7 +29,7 @@ jobs:
       - name: Install Rust toolchain
         run: rustup default stable && cargo install cargo-binutils && cargo install cargo-generate
       - name: generate by template
-        run: USER=test cargo generate --git https://github.com/Byte-OS/polyhal-template.git -n test-polyhal
+        run: USER=test cargo generate --path . -n test-polyhal
       - name: Install Qemu
         run: yes | pacman -Syy ${{ matrix.packages }}
       - name: test run
