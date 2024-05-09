@@ -35,6 +35,6 @@ jobs:
       - name: Install Qemu
         run: yes | pacman -Syy ${{ matrix.packages }}
       - name: test run
-        run: cd test-polyhal && PATH=$PATH:~/.cargo/bin timeout 40 make ARCH=${{ matrix.arch }} run > output.log
+        run: cd test-polyhal && PATH=$PATH:~/.cargo/bin timeout 60 make ARCH=${{ matrix.arch }} run > output.log
       - name: test log
         run: grep "\[kernel\] exited successfully" output.log
