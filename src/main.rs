@@ -30,6 +30,8 @@ pub fn main(hart_id: usize) {
         println!("init memory region {:#x} - {:#x}", start, start + size);
         crate::frame::add_frame_range(start, start + size);
     });
+    
+    println!("[kernel] exited successfully");
 }
 
 struct PageAllocImpl;
